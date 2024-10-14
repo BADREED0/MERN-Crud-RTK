@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { deleteUser, getUsers } from './redux/userSlice';
 import CreateUser from './CreateUser';
+import { fetchUsers } from './utils/apiCalls';
 
 
 
@@ -13,20 +14,11 @@ function User() {
     const users = useSelector((state) => state.users.users)
     const dispatch = useDispatch()
 
-    const fecthUsers = () => {
-        axios.get('http://127.0.0.1:5000')
-            .then( (response) => {
-                console.log("users --> ",response.data)
-                dispatch(getUsers(response.data))
-            })
-            .catch( (error) => {
-                console.log(error)
-            })
-    }
-
     useEffect( ()=> {
-        fecthUsers()
-    },[])
+        console.log('Je suis ici11')
+        dispatch(fetchUsers())
+        console.log('Je suis ici22')
+    },[dispatch])
 
     const handleDelete = (id) => {
         axios.delete(`http://127.0.0.1:5000/${id}`)
